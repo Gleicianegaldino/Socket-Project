@@ -11,7 +11,7 @@ public class Server {
 			System.out.println("start server");
 			
 			while(true) {
-				Middle game = new Middle(server.accept());
+				Connection game = new Connection(server.accept());
 				game.start();
 			}
 		} catch (Exception e) {

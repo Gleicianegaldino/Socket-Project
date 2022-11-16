@@ -1,38 +1,43 @@
 package domino;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
-public class Domino implements Serializable {
-	Peca head;
-    Peca tail;
-    int lenght;
-    
-    private static Domino instance = null;
-    
-    public Domino getInstance() {
-    	if (Domino.instance == null) {
-    		Domino.instance = new Domino();
-    	}
-    	return Domino.instance;
-    }
-    
-    Random generator = new Random();
+/**
+ * @author rayane
+ *
+ */
+public class Domino {
 	
-	synchronized public void insertPeca() {
-    	Peca domino = new Peca();
-    	domino.left = generator.nextInt(7);
-	    domino.right = generator.nextInt(7);
-	    domino.prev = null;
-	    domino.next = head;
-	    if (head != null) {
-	        head.prev = domino;
-	    }
-	    head = domino;
-	    if (lenght == 0) {
-	        tail = head;
-	    }
-	    System.out.println("|" + domino.left + "|" + domino.right + "|");
-        lenght++;
-    }
+	int domino[] = null;
+	
+	/**
+	 * init -> void
+	 * @return void
+	 * 
+	 */
+	public void insertPeca() {
+		
+		Peca peca = new Peca();
+		for (int i = 0; i < 7; i++) {
+			for (int j = i; j < 7; j++) {
+				peca.left = i;
+				peca.right = j;
+				System.out.println("|" + peca.left + "|" + peca.right + "|");
+//				ArrayList<Peca>
+//				System.out.println(peca);
+//				inserir no os dados no array domino
+			}
+		}
+	}
+	
+	/**
+	 *getRandom -> Peca
+	 *@return Peca
+	 *
+	 */
+//	public Peca getPeca() {
+//		Random random = new Random();
+//		Peca get = domino.get(random.nextInt());
+//	}
 }
