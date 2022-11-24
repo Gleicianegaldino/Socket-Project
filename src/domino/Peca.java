@@ -7,5 +7,10 @@ public class Peca implements Serializable {
 	public int left;
 	public int right;
 	Peca next;
-	Peca prev;	
+	Peca prev;
+	
+	@Override
+	public String toString() {
+		return "|" + left + "|" + right + "|";
+	}
 }

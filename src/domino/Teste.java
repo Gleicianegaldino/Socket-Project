@@ -6,6 +6,8 @@ public class Teste {
 		// TODO Auto-generated method stub
 		Domino domino = new Domino();
 		domino.insertPeca();
+		domino.getRandom();
+		domino.girarPeca();
 	}
 
 }

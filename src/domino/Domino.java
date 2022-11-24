@@ -2,6 +2,7 @@ package domino;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * @author rayane
@@ -9,35 +10,64 @@ import java.util.Random;
  */
 public class Domino {
 	
-	int domino[] = null;
+	ArrayList<Peca> domino = new ArrayList<Peca>();
+	ArrayList<Peca> hand = new ArrayList<Peca>();
 	
 	/**
-	 * init -> void
 	 * @return void
 	 * 
 	 */
 	public void insertPeca() {
 		
-		Peca peca = new Peca();
 		for (int i = 0; i < 7; i++) {
 			for (int j = i; j < 7; j++) {
+				Peca peca = new Peca();
 				peca.left = i;
 				peca.right = j;
-				System.out.println("|" + peca.left + "|" + peca.right + "|");
-//				ArrayList<Peca>
-//				System.out.println(peca);
-//				inserir no os dados no array domino
+				domino.add(peca);
 			}
 		}
+		System.out.println(domino);
 	}
 	
 	/**
-	 *getRandom -> Peca
 	 *@return Peca
 	 *
 	 */
-//	public Peca getPeca() {
-//		Random random = new Random();
-//		Peca get = domino.get(random.nextInt());
-//	}
+	public void getRandom() {
+		
+		Random random = new Random();
+		for (int i = 0; i < 6; i++) {
+			int index = random.nextInt(domino.size());
+			hand.add(domino.get(index));
+			domino.remove(index); //no repetitions
+		}
+		System.out.println(hand);
+	}
+	
+	public void getPeca() {
+		
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Select:");
+		int index = scanner.nextInt();
+		hand.get(index);
+		System.out.println(hand.get(index));
+		hand.remove(index);
+		System.out.println(hand);
+	}
+	
+	public void girarPeca() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Select:");
+		int index = scanner.nextInt();
+		hand.get(index);
+		System.out.println(hand.get(index));
+		int l = hand.get(index).left;
+		int r = hand.get(index).right;
+		hand.get(index).left = r;
+		hand.get(index).right = l;
+		System.out.println(hand.get(index));
+	}
+	
+	
 }

@@ -1,0 +1,1 @@
+INDEX VERSION 1.131+/home/rayane/GitHub/Socket-Project/.metadata/.plugins/org.eclipse.jdt.core
