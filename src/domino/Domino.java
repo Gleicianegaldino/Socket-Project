@@ -12,6 +12,15 @@ public class Domino {
 	
 	ArrayList<Peca> domino = new ArrayList<Peca>();
 	ArrayList<Peca> hand = new ArrayList<Peca>();
+	static Domino instance = null;
+
+	public static Domino getInstance() {
+		if ((instance != null)) {
+			return instance;
+		}
+		instance = new Domino();
+		return instance;
+	}
 	
 	/**
 	 * @return void

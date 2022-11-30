@@ -10,7 +10,7 @@ public class PlayerSocket {
 
     public PlayerSocket(Socket socket) throws IOException {
         this.socket = socket;
-        System.out.println("Cliente " + socket.getRemoteSocketAddress() + " conectado");
+        System.out.println("Player " + socket.getRemoteSocketAddress() + " connected");
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.out = new PrintWriter(socket.getOutputStream());
     }
