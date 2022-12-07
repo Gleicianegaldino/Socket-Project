@@ -8,7 +8,7 @@ public class PlayerSocket {
     private final Socket socket;
     private final BufferedReader in;
     private final PrintWriter out;
-    Domino domino = Domino.getInstance();
+    Domino instance = Domino.getInstance();
 
     public PlayerSocket(Socket socket) throws IOException {
         this.socket = socket;
@@ -36,6 +36,7 @@ public class PlayerSocket {
         try {
             return in.readLine();
         } catch (Exception e) {
+            System.out.println("exception");
             // TODO: handle exception
             return null;
         }
@@ -43,12 +44,23 @@ public class PlayerSocket {
 
     public boolean sendMessage(String msg) {
         out.println(msg);
+        out.flush();
         return !out.checkError();
     }
 
-    public void firstMessage(ArrayList<Peca> domino) {
-        domino = domino.getRandom();
-        out.println(domino);
-        out.close();
+    public String getFirstMessage(String string) {
+        try {
+            return in.readLine();
+        } catch (Exception e) {
+            // TODO: handle exception
+            return null;
+        }
+    }
+
+    public ArrayList<Peca> firstMessage() {
+       ArrayList<Peca> hand = instance.getRandom();
+       out.println(hand);
+       out.flush();
+       return hand;
     }
 }

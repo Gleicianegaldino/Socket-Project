@@ -81,5 +81,4 @@ public class Domino {
 		System.out.println(hand.get(index));
 	}
 	
-	
 }

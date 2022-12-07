@@ -11,12 +11,12 @@ public class Server {
 	private ServerSocket serverSocket;
 	// private PlayerSocket playerSocket;
 	private final List<PlayerSocket> players = new LinkedList<>();
-	Domino domino = Domino.getInstance();
+	Domino instance = Domino.getInstance();
 
 	private void start() throws IOException {
 		serverSocket = new ServerSocket(PORT);
 		System.out.println("Start Server::PORT " + PORT);
-		domino.insertPeca();
+		instance.insertPeca();
 		clientConnectionLoop();
 	}
 
@@ -26,9 +26,11 @@ public class Server {
 	private void clientConnectionLoop() throws IOException {
 		while (true) {
 			PlayerSocket playerSocket = new PlayerSocket(serverSocket.accept());
+			System.out.println("accepted client");
 			players.add(playerSocket);
 			new Thread(() -> playerMessageLoop(playerSocket)).start();
 			//domino.getRandom();
+			playerSocket.firstMessage();
 		}
 	}
 
@@ -55,7 +57,7 @@ public class Server {
 		Iterator<PlayerSocket> iterator = players.iterator();
 		while (iterator.hasNext()) {
 			PlayerSocket playerSocket = iterator.next();
-			if (!sender.equals(playerSocket)) {
+			if (true || !sender.equals(playerSocket)) {
 				if (!playerSocket.sendMessage("Out::Player" + sender.getRemoteSocketAddress() + "::" + msg)) {
 					iterator.remove();
 				}

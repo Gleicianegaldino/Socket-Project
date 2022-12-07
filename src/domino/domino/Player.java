@@ -8,7 +8,7 @@ public class Player implements Runnable {
 	private static final String ServerAddress = "127.0.0.1";
 	private PlayerSocket playerSocket;
 	private Scanner scanner;
-	Domino domino = Domino.getInstance();
+	Domino instance = Domino.getInstance();
 
 	public Player() {
 		scanner = new Scanner(System.in);
@@ -30,7 +30,7 @@ public class Player implements Runnable {
 	public void run() {
 		String d;
 		while ((d = playerSocket.getMessage()) != null) {
-			System.out.println("In::Server" + playerSocket.getMessage());
+			System.out.println("In::Server" + d);
 		}
 	}
 
