@@ -2,11 +2,13 @@ package domino;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 
 public class PlayerSocket {
     private final Socket socket;
     private final BufferedReader in;
     private final PrintWriter out;
+    Domino domino = Domino.getInstance();
 
     public PlayerSocket(Socket socket) throws IOException {
         this.socket = socket;
@@ -42,5 +44,11 @@ public class PlayerSocket {
     public boolean sendMessage(String msg) {
         out.println(msg);
         return !out.checkError();
+    }
+
+    public void firstMessage(ArrayList<Peca> domino) {
+        domino = domino.getRandom();
+        out.println(domino);
+        out.close();
     }
 }

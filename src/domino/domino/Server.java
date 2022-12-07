@@ -9,25 +9,26 @@ import java.util.List;
 public class Server {
 	public static final int PORT = 4000;
 	private ServerSocket serverSocket;
-	//private PlayerSocket playerSocket;
+	// private PlayerSocket playerSocket;
 	private final List<PlayerSocket> players = new LinkedList<>();
 	Domino domino = Domino.getInstance();
-	
+
 	private void start() throws IOException {
 		serverSocket = new ServerSocket(PORT);
 		System.out.println("Start Server::PORT " + PORT);
 		domino.insertPeca();
 		clientConnectionLoop();
 	}
-	
+
 	/**
 	 * @throws IOException
 	 */
-	private void clientConnectionLoop() throws IOException{
-		while(true) {
+	private void clientConnectionLoop() throws IOException {
+		while (true) {
 			PlayerSocket playerSocket = new PlayerSocket(serverSocket.accept());
 			players.add(playerSocket);
-			new Thread(() ->  playerMessageLoop(playerSocket)).start();
+			new Thread(() -> playerMessageLoop(playerSocket)).start();
+			//domino.getRandom();
 		}
 	}
 
@@ -36,13 +37,13 @@ public class Server {
 		try {
 			while ((msg = playerSocket.getMessage()) != null) {
 				if ("exit".equalsIgnoreCase(msg)) {
-					return;				
+					return;
 				}
 				System.out.println("In::Player " +
-				playerSocket.getRemoteSocketAddress() + " " +
-				msg);
+						playerSocket.getRemoteSocketAddress() + " " +
+						msg);
 
-			sendMessageToAll(playerSocket, msg);
+				sendMessageToAll(playerSocket, msg);
 			}
 		} finally {
 			// TODO: handle exception
@@ -52,7 +53,7 @@ public class Server {
 
 	private void sendMessageToAll(PlayerSocket sender, String msg) {
 		Iterator<PlayerSocket> iterator = players.iterator();
-		while(iterator.hasNext()) {
+		while (iterator.hasNext()) {
 			PlayerSocket playerSocket = iterator.next();
 			if (!sender.equals(playerSocket)) {
 				if (!playerSocket.sendMessage("Out::Player" + sender.getRemoteSocketAddress() + "::" + msg)) {
@@ -61,7 +62,7 @@ public class Server {
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		try {
 			Server server = new Server();

@@ -9,11 +9,11 @@ public class Player implements Runnable {
 	private PlayerSocket playerSocket;
 	private Scanner scanner;
 	Domino domino = Domino.getInstance();
-	
+
 	public Player() {
 		scanner = new Scanner(System.in);
 	}
-	
+
 	public void start() throws IOException {
 		try {
 			playerSocket = new PlayerSocket(new Socket(ServerAddress, Server.PORT));
@@ -28,21 +28,21 @@ public class Player implements Runnable {
 
 	@Override
 	public void run() {
-		String msg;
-		while ((msg = playerSocket.getMessage()) != null) {
-			System.out.println("In::Server" + playerSocket.getMessage());	
+		String d;
+		while ((d = playerSocket.getMessage()) != null) {
+			System.out.println("In::Server" + playerSocket.getMessage());
 		}
 	}
-	
+
 	private void messageLoop() throws IOException {
-		String msg;
+		String d;
 		do {
 			System.out.println("Digite uma mensagem (caso queira finalizar, digite 'exit')");
-			msg = scanner.nextLine();
-			playerSocket.sendMessage(msg);
-		} while(!msg.equalsIgnoreCase("exit"));
+			d = scanner.nextLine();
+			playerSocket.sendMessage(d);
+		} while (!d.equalsIgnoreCase("exit"));
 	}
-	
+
 	public static void main(String[] args) {
 		try {
 			Player player = new Player();

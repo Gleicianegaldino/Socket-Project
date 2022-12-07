@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Domino {
 	
 	ArrayList<Peca> domino = new ArrayList<Peca>();
+	ArrayList<Peca> all = new ArrayList<>();
 	ArrayList<Peca> hand = new ArrayList<Peca>();
 	static Domino instance = null;
 
@@ -43,7 +44,7 @@ public class Domino {
 	 *@return Peca
 	 *
 	 */
-	public void getRandom() {
+	public ArrayList<Peca> getRandom() {
 		
 		Random random = new Random();
 		for (int i = 0; i < 6; i++) {
@@ -52,17 +53,19 @@ public class Domino {
 			domino.remove(index); //no repetitions
 		}
 		System.out.println(hand);
+		return hand;
 	}
 	
-	public void getPeca() {
+	public Peca getPeca() {
 		
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Select:");
 		int index = scanner.nextInt();
-		hand.get(index);
+		Peca get = hand.get(index);
 		System.out.println(hand.get(index));
 		hand.remove(index);
 		System.out.println(hand);
+		return get;
 	}
 	
 	public void girarPeca() {
