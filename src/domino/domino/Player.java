@@ -2,6 +2,7 @@ package domino;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Player implements Runnable {
@@ -9,6 +10,7 @@ public class Player implements Runnable {
 	private PlayerSocket playerSocket;
 	private Scanner scanner;
 	Domino instance = Domino.getInstance();
+	Peca peca;
 
 	public Player() {
 		scanner = new Scanner(System.in);
@@ -20,6 +22,9 @@ public class Player implements Runnable {
 			System.out.println("Player A connected " + ServerAddress + "::" + Server.PORT);
 			new Thread(this).start();
 			messageLoop();
+			playerSocket.getFirstMessage();
+		} catch (Exception e) {
+			System.out.println(e);
 		} finally {
 			// TODO: handle exception
 			playerSocket.close();
@@ -28,19 +33,27 @@ public class Player implements Runnable {
 
 	@Override
 	public void run() {
-		String d;
+		Object d;
 		while ((d = playerSocket.getMessage()) != null) {
-			System.out.println("In::Server" + d);
+			//  ((ArrayList<Peca>)d).get(1);
+			System.out.println(((ArrayList)d).get(1));
+			System.out.println("In::Server " + d);
 		}
 	}
 
 	private void messageLoop() throws IOException {
-		String d;
+		// String message;
+		int message;
 		do {
-			System.out.println("Digite uma mensagem (caso queira finalizar, digite 'exit')");
-			d = scanner.nextLine();
-			playerSocket.sendMessage(d);
-		} while (!d.equalsIgnoreCase("exit"));
+			System.out.println("Escolha uma peça por indice: (caso queira finalizar, digite 'exit')");
+			// message = scanner.nextLine();
+			message = scanner.nextInt();
+			System.out.println("message" + message);
+			System.out.println(instance.getPeca(message));
+			playerSocket.sendMessage(instance.getPeca(message).toString());
+		} while (message >= 0 && message <= 5);
+		// !message.equalsIgnoreCase("exit")
+		// message >= 0 && message <= 5
 	}
 
 	public static void main(String[] args) {

@@ -10,9 +10,9 @@ import java.util.Scanner;
  */
 public class Domino {
 	
-	ArrayList<Peca> domino = new ArrayList<Peca>();
-	ArrayList<Peca> all = new ArrayList<>();
-	ArrayList<Peca> hand = new ArrayList<Peca>();
+	ArrayList<Peca> domino = new ArrayList();
+	ArrayList<Peca> all = new ArrayList();
+	ArrayList<Peca> hand = new ArrayList();
 	static Domino instance = null;
 
 	public static Domino getInstance() {
@@ -52,15 +52,14 @@ public class Domino {
 			hand.add(domino.get(index));
 			domino.remove(index); //no repetitions
 		}
+		all.addAll(hand);
 		System.out.println(hand);
-		return hand;
+		return all;
 	}
 	
-	public Peca getPeca() {
-		
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Select:");
-		int index = scanner.nextInt();
+	public Peca getPeca(int index) {
+		System.out.println("Im hereeee");
+		System.out.println(hand);
 		Peca get = hand.get(index);
 		System.out.println(hand.get(index));
 		hand.remove(index);
